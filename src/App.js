@@ -6,11 +6,11 @@ function App() {
 
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
+      <header className="App-header">
         <Routes>
         <Route exact path="/" element={<CalorieCounter/>} />
         </Routes>
-      {/* </header> */}
+      </header>
     </div>
   );
 }
