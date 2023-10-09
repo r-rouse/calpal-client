@@ -1,0 +1,62 @@
+.card-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr ;
+    gap: .5em;
+    margin: 1em;
+}
+.totalCal{
+    display: flex;
+    flex-direction: column;
+    height: 10em;
+    width: 15em;
+    border: 2px solid red;
+    justify-content: center;
+    margin: 1em;
+    box-shadow: .1em .1em rgb(52, 25, 27);
+    border-radius: 5%;
+}
+button{
+    margin: .5em;
+    align-self: center;
+}
+span{
+    margin: .1em;
+    font-size: large;
+}
+input{
+    width: 70%;
+    height: 1.5em;
+    background-color: beige;    
+}
+.input{
+    display: block;
+}
+.inputs{
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+}
+.calorie-calculator{
+    width: 20em;
+}
+.info{
+    display: flex;
+}
+.itemList{
+    font-size: medium;
+    color: rgb(215, 235, 226);
+    text-overflow: clip;
+    /* border: 2px solid rebeccapurple; */
+    display: block;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.infoBox{
+    height: 15em;
+}
+.title{
+    font-size: large;
+    color: white;
+    align-self: flex-start;
+}
