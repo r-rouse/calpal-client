@@ -21,13 +21,12 @@ const CalorieCounter = props => {
     const [servingSize, ] = useState(4)
 
     const getAllFoods = async (food) => {
-        const response = await axios.get(`${apiUrl}/api/foods`)
+        await axios.get(`${apiUrl}/api/foods`)
             .then(response => setFoods(response.data))
     }
     const postFood = async (ingredient) => {
         const newFood = { ...ingredient }
-        const response = await axios.post(`${apiUrl}/api/foods`, newFood)
-            .then(response => console.log("posted!"))
+        await axios.post(`${apiUrl}/api/foods`, newFood)
     }
 
     useEffect(() => {
