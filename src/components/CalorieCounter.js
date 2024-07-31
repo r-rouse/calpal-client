@@ -13,21 +13,21 @@ const CalorieCounter = props => {
     const [grams, setGrams] = useState()
     const [food, setFood] = useState("air")
     const [foods, setFoods] = useState([])
-    const [calPerItem, ] = useState([0])
+    const [calPerItem,] = useState([0])
     const [ingredient, setIngredient] = useState({
         name: '',
         caloriesPerGram: ''
     })
-    const [servingSize, ] = useState(4)
+    const [servingSize,] = useState(4)
 
     const getAllFoods = async (food) => {
-        const response = await axios.get(`${apiUrl}/api/foods`)
-            .then(() => setFoods(response.data))
+        await axios.get(`${apiUrl}/api/foods`)
+            .then(response => setFoods(response.data))
     }
     const postFood = async (ingredient) => {
         const newFood = { ...ingredient }
         await axios.post(`${apiUrl}/api/foods`, newFood)
-        .then(() => console.log("posted"))
+            .then(response => console.log(response))
     }
 
     useEffect(() => {
@@ -53,7 +53,7 @@ const CalorieCounter = props => {
         addItemValue(calorie)
 
     }
-    
+
     const handleIngredientsChange = (e) => {
         setIngredient({ ...ingredient, [e.target.name]: e.target.value })
         setGrams(e.target.value)
