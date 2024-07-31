@@ -4,9 +4,9 @@ import "./CalorieCounter.css"
 import { useSelector, useDispatch } from 'react-redux'
 import { decrementByAmount, incrementByAmount, incrementByItem, decrementByItem, incrementByItemCal, increment } from '../counterSlice'
 import { ItemList } from "./ItemList";
-import ingredients from "../constants/ingredients";
+import axios from "axios";
 
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const CalorieCounter = props => {
     const [calories, setCalories] = useState(0)
@@ -14,25 +14,25 @@ const CalorieCounter = props => {
     const [food, setFood] = useState("air")
     const [foods, setFoods] = useState([])
     const [calPerItem, ] = useState([0])
-    // const [ingredient, setIngredient] = useState({
-    //     name: '',
-    //     caloriesPerGram: ''
-    // })
+    const [ingredient, setIngredient] = useState({
+        name: '',
+        caloriesPerGram: ''
+    })
     const [servingSize, ] = useState(4)
 
-    // const getAllFoods = async (food) => {
-    //     const response = await axios.get(`http://localhost:3001/api/foods`)
-    //         .then(response => setFoods(response.data))
-    // }
-    // const postFood = async (ingredient) => {
-    //     const newFood = { ...ingredient }
-    //     const response = await axios.post(`http://localhost:3001/api/foods`, newFood)
-    //         .then(response => console.log("posted!"))
-    // }
+    const getAllFoods = async (food) => {
+        const response = await axios.get(`${apiUrl}/api/foods`)
+            .then(response => setFoods(response.data))
+    }
+    const postFood = async (ingredient) => {
+        const newFood = { ...ingredient }
+        const response = await axios.post(`${apiUrl}/api/foods`, newFood)
+            .then(response => console.log("posted!"))
+    }
 
     useEffect(() => {
-        // getAllFoods()
-        setFoods(ingredients)
+        getAllFoods()
+        // setFoods(ingredients)
     }, [])
     const addItemValue = calories => {
         calPerItem.push(calories)
@@ -53,21 +53,20 @@ const CalorieCounter = props => {
         addItemValue(calorie)
 
     }
-    const handleChange = (e) => {
+    
+    const handleIngredientsChange = (e) => {
+        setIngredient({ ...ingredient, [e.target.name]: e.target.value })
         setGrams(e.target.value)
+        console.log(ingredient)
     }
-    // const handleIngredientsChange = (e) => {
-    //     setIngredient({ ...ingredient, [e.target.name]: e.target.value })
-    //     console.log(ingredient)
-    // }
 
     const handleSubmit = async (e) => {
         grams ?
             converter(grams) : alert("can't eat nothing baby")
     }
-    // const handleSubmitFood = e => {
-    //     postFood(ingredient)
-    // }
+    const handleSubmitFood = e => {
+        postFood(ingredient)
+    }
     const calorieCount = (calPerGram) => {
         setCalories(calPerGram)
     }
@@ -95,7 +94,7 @@ const CalorieCounter = props => {
                 {foods.map((food) => (
                     <FoodCard
                         name={food.name}
-                        caloriesPerGram={food.calories}
+                        caloriesPerGram={food.caloriesPerGram}
                         calorieCount={calorieCount}
                         foodName={foodName}
                         key={`item-${food.name}`}
@@ -106,7 +105,7 @@ const CalorieCounter = props => {
                 <div>
                     <div className="inputs">
                         <div className="calorie-calculator">
-                            <input onChange={handleChange} placeholder={"number of grams"}></input>
+                            <input onChange={handleIngredientsChange} placeholder={"number of grams"}></input>
                             <div>
                                 <button type={"submit"} onClick={handleSubmit} > calculate</button>
                             </div>
@@ -142,7 +141,7 @@ const CalorieCounter = props => {
                         ))}</div>
                 </div>
             </div>
-            {/* <div className="datbase-ui-input">
+            <div className="datbase-ui-input">
                 <input onChange={handleIngredientsChange}
                     type='text'
                     placeholder={"name"}
@@ -155,7 +154,7 @@ const CalorieCounter = props => {
                     type="integer"
                 />
                 <button onClick={handleSubmitFood}>Add ingredient to database</button>
-            </div> */}
+            </div>
 
         </>
     )
