@@ -39,7 +39,7 @@ const CalorieCounter = props => {
     const addItemValue = calories => {
         calPerItem.push(calories)
     }
-    // foods.sort((a, b) => a.name.localeCompare(b.name))
+    foods.sort((a, b) => a.name.localeCompare(b.name))
     const count = useSelector((state) => state.counter.value)
     const list = useSelector((state) => state.counter.ingredients)
     const itemCalories = useSelector((state) => state.counter.itemCal)
