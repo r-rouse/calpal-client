@@ -5,18 +5,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { decrementByAmount, incrementByAmount, incrementByItem, decrementByItem, incrementByItemCal, increment } from '../counterSlice'
 import { ItemList } from "./ItemList";
 import axios from "axios";
+import { Button, TextField } from "@mui/material";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const CalorieCounter = props => {
     const [calories, setCalories] = useState(0)
     const [grams, setGrams] = useState()
-    const [food, setFood] = useState("air")
+    const [food, setFood] = useState("")
     const [foods, setFoods] = useState([])
     const [calPerItem,] = useState([0])
+    const [disabled, setDisable] = useState(false)
     const [ingredient, setIngredient] = useState({
         name: '',
-        caloriesPerGram: ''
+        caloriesPerGram: '',
     })
     const [servingSize,] = useState(4)
 
@@ -37,12 +39,10 @@ const CalorieCounter = props => {
     const addItemValue = calories => {
         calPerItem.push(calories)
     }
-    foods.sort((a, b) => a.name.localeCompare(b.name))
-
+    // foods.sort((a, b) => a.name.localeCompare(b.name))
     const count = useSelector((state) => state.counter.value)
     const list = useSelector((state) => state.counter.ingredients)
     const itemCalories = useSelector((state) => state.counter.itemCal)
-
     const transformedCount = + ((count).toFixed(2))
     const dispatch = useDispatch()
 
@@ -51,21 +51,23 @@ const CalorieCounter = props => {
         const calorie = + ((grams * calories).toFixed(2))
         setCalories(calorie)
         addItemValue(calorie)
-
     }
 
     const handleIngredientsChange = (e) => {
         setIngredient({ ...ingredient, [e.target.name]: e.target.value })
         setGrams(e.target.value)
-        console.log(ingredient)
+        setDisable(false)
     }
 
     const handleSubmit = async (e) => {
         grams ?
             converter(grams) : alert("can't eat nothing baby")
+        setDisable(true)
+        setIngredient({value: ""})
     }
     const handleSubmitFood = e => {
         postFood(ingredient)
+        setDisable(false)
     }
     const calorieCount = (calPerGram) => {
         setCalories(calPerGram)
@@ -74,17 +76,29 @@ const CalorieCounter = props => {
         setFood(name)
     }
     const setCaloriesAndIngridients = () => {
-        dispatch(incrementByAmount(calories))
-        dispatch(incrementByItem(food))
-        dispatch(incrementByItemCal(calories))
-        dispatch(increment())
+        if (food) {
+            dispatch(incrementByAmount(calories))
+            dispatch(incrementByItem(food))
+            dispatch(incrementByItemCal(calories))
+            dispatch(increment())
+            setFood("")
+            setDisable(false)
+        }
     }
     const removeCaloriesAndIngridients = () => {
-        dispatch(decrementByAmount(calories))
-        dispatch(decrementByItem(food))
+        if (itemCalories.length > 1) {
+            dispatch(decrementByAmount(calories))
+            dispatch(decrementByItem(food))
+            setCalories(itemCalories[itemCalories.length - 1])
+            console.log(calories, "wth")
+        } else {
+            dispatch(decrementByAmount(calories))
+            dispatch(decrementByItem(food))
+            setCalories(0)
+        }
     }
-    const message = calories < 2 ? `${calories} calories per gram of ${food}` :
-        `${calories} Calories of ${food}`
+    const message = calories < 10 ? `${calories} calories per gram of ${food}` :
+        `${calories} calories of ${food}`
 
     const perServing = ((count / servingSize).toFixed(2))
 
@@ -105,34 +119,57 @@ const CalorieCounter = props => {
                 <div>
                     <div className="inputs">
                         <div className="calorie-calculator">
-                            <input onChange={handleIngredientsChange} placeholder={"number of grams"}></input>
+                            <TextField
+                                sx={{
+                                    backgroundColor: '#f0f0f0', // Set the background color here
+                                    '& .MuicontainedInput-root': {
+                                    },
+                                }} onChange={handleIngredientsChange}
+                                placeholder={"number of grams"}>
+                            </TextField>
                             <div>
-                                <button type={"submit"} onClick={handleSubmit} > calculate</button>
+                                <Button
+                                    sx={{
+                                        margin: '16px', // Adds margin around the button
+                                    }} type={"submit"} onClick={handleSubmit}
+                                    disabled={disabled}
+                                >
+                                    calculate
+                                </Button>
                             </div>
-                            {message}
+                            {food && (
+                                <div>{message}</div>
+                            )}
                         </div>
 
                     </div>
                 </div>
                 <div className="info">
                     <div className="totalCal">
-                        <button
+                        <Button
+                            sx={{
+                                margin: '16px', // Adds margin around the button
+                            }}
+                            variant="contained"
                             aria-label="Increment value"
                             onClick={setCaloriesAndIngridients}
                         >
                             Add to total
-                        </button>
-                        <button
-                            aria-label="Decrement value"
-                            onClick={removeCaloriesAndIngridients}
-                        >
-                            Remove last item
-                        </button>
+                        </Button>
+
                         <div className="infoBox">
                             <span>{`${transformedCount} calories in your meal`}</span><br />
                             <span>{`${perServing} calories per serving`}</span><br />
                         </div>
-
+                        <Button
+                            sx={{
+                                margin: '16px', // Adds margin around the button
+                            }}
+                            variant="contained" aria-label="Decrement value"
+                            onClick={removeCaloriesAndIngridients}
+                        >
+                            Remove last item
+                        </Button>
                     </div>
                     <div className="list">
                         Ingredients List:
@@ -142,18 +179,33 @@ const CalorieCounter = props => {
                 </div>
             </div>
             <div className="datbase-ui-input">
-                <input onChange={handleIngredientsChange}
+                <TextField
+                    sx={{
+                        backgroundColor: '#f0f0f0', // Set the background color here
+                        '& .MuicontainedInput-root': {
+                        },
+                    }} onChange={handleIngredientsChange}
                     type='text'
                     placeholder={"name"}
                     name='name'
                     value={ingredient.name} />
-                <input onChange={handleIngredientsChange}
+                <TextField
+                    sx={{
+                        backgroundColor: '#f0f0f0', // Set the background color here
+                        '& .MuicontainedInput-root': {
+                        },
+                    }} onChange={handleIngredientsChange}
                     value={ingredient.caloriesPerGram}
                     placeholder={"calories per 100 gram"}
                     name="caloriesPerGram"
                     type="integer"
                 />
-                <button onClick={handleSubmitFood}>Add ingredient to database</button>
+                <Button
+                    sx={{
+                        margin: '16px', // Adds margin around the button
+                    }}
+                    className="button"
+                    variant="contained" onClick={handleSubmitFood}>Add ingredient to database</Button>
             </div>
 
         </>

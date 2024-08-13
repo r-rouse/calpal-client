@@ -21,8 +21,12 @@ export const counterSlice = createSlice({
       state.value -= (action.payload)
     },
     decrementByItem: (state, action) => {
-      state.ingredients.pop()
-    },
+      const itemIndex = state.ingredients.length - 1; // or another index logic if needed
+      if (itemIndex >= 0) {
+          state.ingredients.pop(); // Removes the last ingredient
+          state.itemCal.pop();     // Removes the corresponding last calorie entry
+      }
+  },
     incrementByAmount: (state, action) => {
       state.value += action.payload
     },

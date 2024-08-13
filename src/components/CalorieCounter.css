@@ -5,6 +5,9 @@
     gap: .5em;
     margin: 1em;
 }
+.datbase-ui-input{
+    margin: 2vh;
+}
 .totalCal{
     display: flex;
     flex-direction: column;
