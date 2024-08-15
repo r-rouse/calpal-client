@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
 
 const pages = ['Calender', 'Counter'];
-const settings = ['Logout'];
+// const settings = ['Logout'];
 
 function ResponsiveAppBar() {
     const navigate = useNavigate();
@@ -30,16 +30,24 @@ function ResponsiveAppBar() {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = (page) => {
+    const handlePressPage = (page) => {
         setAnchorElNav(null);
         navigate(`/${page.toLowerCase()}`)
+    };
+    const handleCloseNavMenu = (page) => {
+        setAnchorElNav(null);
     };
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
+    };
+    const handlePressItem = () => {
+        setAnchorElUser(null);
+        localStorage.removeItem('token');
         navigate('/')
     };
-
+    const token  = localStorage.getItem("token")
+    const setting =  token ? "logout" : "login"
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -93,7 +101,7 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
+                                <MenuItem key={page} onClick={() => handlePressPage(page)}>
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
@@ -152,11 +160,9 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={handlePressItem}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
-                            ))}
                         </Menu>
                     </Box>
                 </Toolbar>

@@ -21,7 +21,7 @@ const CalorieCounter = props => {
         caloriesPerGram: '',
     })
     const [servingSize,] = useState(4)
-
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const getAllFoods = async (food) => {
         await axios.get(`${apiUrl}/api/foods`)
             .then(response => setFoods(response.data))
@@ -31,6 +31,14 @@ const CalorieCounter = props => {
         await axios.post(`${apiUrl}/api/foods`, newFood)
             .then(response => console.log(response))
     }
+
+    useEffect(() => {
+        // Check if the token exists in localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsAuthenticated(true);
+        }
+    }, []);
 
     useEffect(() => {
         getAllFoods()
@@ -63,7 +71,7 @@ const CalorieCounter = props => {
         grams ?
             converter(grams) : alert("can't eat nothing baby")
         setDisable(true)
-        setIngredient({value: ""})
+        setIngredient({ value: "" })
     }
     const handleSubmitFood = e => {
         postFood(ingredient)
@@ -179,34 +187,44 @@ const CalorieCounter = props => {
                 </div>
             </div>
             <div className="datbase-ui-input">
-                <TextField
-                    sx={{
-                        backgroundColor: '#f0f0f0', // Set the background color here
-                        '& .MuicontainedInput-root': {
-                        },
-                    }} onChange={handleIngredientsChange}
-                    type='text'
-                    placeholder={"name"}
-                    name='name'
-                    value={ingredient.name} />
-                <TextField
-                    sx={{
-                        backgroundColor: '#f0f0f0', // Set the background color here
-                        '& .MuicontainedInput-root': {
-                        },
-                    }} onChange={handleIngredientsChange}
-                    value={ingredient.caloriesPerGram}
-                    placeholder={"calories per 100 gram"}
-                    name="caloriesPerGram"
-                    type="integer"
-                />
-                <Button
-                    sx={{
-                        margin: '16px', // Adds margin around the button
-                    }}
-                    className="button"
-                    variant="contained" onClick={handleSubmitFood}>Add ingredient to database</Button>
+                {isAuthenticated ? (
+                    <>
+                        <TextField
+                            sx={{
+                                backgroundColor: '#f0f0f0', // Set the background color here
+                            }}
+                            onChange={handleIngredientsChange}
+                            type='text'
+                            placeholder="Name"
+                            name='name'
+                            value={ingredient.name}
+                        />
+                        <TextField
+                            sx={{
+                                backgroundColor: '#f0f0f0', // Set the background color here
+                            }}
+                            onChange={handleIngredientsChange}
+                            value={ingredient.caloriesPerGram}
+                            placeholder="Calories per 100 gram"
+                            name="caloriesPerGram"
+                            type="number"
+                        />
+                        <Button
+                            sx={{
+                                margin: '16px', // Adds margin around the button
+                            }}
+                            className="button"
+                            variant="contained"
+                            onClick={handleSubmitFood}
+                        >
+                            Add ingredient to database
+                        </Button>
+                    </>
+                ) : (
+                    <p>Please log in to add ingredients to the database.</p>
+                )}
             </div>
+
 
         </>
     )
