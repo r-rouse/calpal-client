@@ -14,8 +14,8 @@ function App() {
       <ResponsiveAppBar/>
       <header className="App-header">
         <Routes>
-        <Route exact path="/" element={<CalorieCounter/>} />
-        <Route exact path="/SignIn" element={<SignIn/>} />
+        <Route exact path="/counter" element={<CalorieCounter/>} />
+        <Route exact path="/" element={<SignIn/>} />
         <Route exact path="/SignUp" element={<SignUp/>} />
         {/* <Route exact path="/Calendar" element={<DateCalendarValue/>} /> */}
         </Routes>

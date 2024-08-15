@@ -16,19 +16,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 
 const defaultTheme = createTheme();
 
@@ -51,7 +38,7 @@ const Login = () => {
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
 
-                navigate('/');
+                navigate('/counter');
             } else {
                 console.error('Login failed, please try again.');
             }
@@ -118,14 +105,18 @@ const Login = () => {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/signup" variant="body2">
                                     {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="/counter" variant="body2">
+                                    {"Just want to use the app as guest?"}
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );
