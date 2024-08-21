@@ -77,7 +77,7 @@ const Login = () => {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
-                            helperText="incorrect password or email"
+                            helperText={error ? "incorrect password or email": ""}
                             autoFocus
                         />
                         <TextField
@@ -89,7 +89,7 @@ const Login = () => {
                             label="Password"
                             type="password"
                             id="password"
-                            helperText="incorrect password or email"
+                            helperText={error ? "incorrect password or email": ""}
                             autoComplete="current-password"
                         />
                         <FormControlLabel
