@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -23,6 +23,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const Login = () => {
     const navigate = useNavigate();
+    const [error, setError] = useState(false)
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -43,6 +44,7 @@ const Login = () => {
                 console.error('Login failed, please try again.');
             }
         } catch (err) {
+            setError(true)
             console.error('Login error:', err);
         }
     };
@@ -67,6 +69,7 @@ const Login = () => {
                     </Typography>
                     <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
                         <TextField
+                            error={error}
                             margin="normal"
                             required
                             fullWidth
@@ -74,9 +77,11 @@ const Login = () => {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
+                            helperText="incorrect password or email"
                             autoFocus
                         />
                         <TextField
+                            error={error}
                             margin="normal"
                             required
                             fullWidth
@@ -84,6 +89,7 @@ const Login = () => {
                             label="Password"
                             type="password"
                             id="password"
+                            helperText="incorrect password or email"
                             autoComplete="current-password"
                         />
                         <FormControlLabel

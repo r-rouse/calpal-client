@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,6 +21,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+    const [error, setError] = useState(false)
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -37,9 +38,11 @@ export default function SignUp() {
                 })
                 .catch(error => {
                     console.error('Error during submission:', error.response ? error.response.data : error.message);
+                    setError(true)
                 });
         } catch (error) {
             console.error('Unexpected error:', error.message);
+            setError(true)
         }
     };
 
@@ -64,9 +67,10 @@ export default function SignUp() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-
                             <Grid item xs={12}>
                                 <TextField
+                                    error={error}
+                                    helperText={error ? "user name is already taken" : ""}
                                     required
                                     fullWidth
                                     id="email"
@@ -77,6 +81,7 @@ export default function SignUp() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    error={error}
                                     required
                                     fullWidth
                                     name="password"
