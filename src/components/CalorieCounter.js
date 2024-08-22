@@ -152,7 +152,6 @@ const CalorieCounter = props => {
             <div className="card-grid">
                 {foods.map((food) => (
                     <FoodCard
-                        className={food.name}
                         name={food.name}
                         caloriesPerGram={food.caloriesPerGram}
                         calorieCount={calorieCount}
