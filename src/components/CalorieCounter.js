@@ -6,11 +6,13 @@ import { decrementByAmount, incrementByAmount, incrementByItem, decrementByItem,
 import { ItemList } from "./ItemList";
 import axios from "axios";
 import { Button, TextField } from "@mui/material";
-
+import Tour from "reactour";
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const CalorieCounter = props => {
     const [calories, setCalories] = useState(0)
+    const [isTourOpen, setOpen] = useState(false)
     const [grams, setGrams] = useState()
     const [food, setFood] = useState("")
     const [foods, setFoods] = useState([])
@@ -109,12 +111,48 @@ const CalorieCounter = props => {
         `${calories} calories of ${food}`
 
     const perServing = ((count / servingSize).toFixed(2))
-
+    const steps = [
+        {
+            selector: '.card-grid-item-0',
+            content: 'choose a food item',
+        },
+        {
+            selector: '.gram-input',
+            content: 'enter number of grams for ingridient',
+        },
+        {
+            selector: '.calculate-button',
+            content: 'calculate the calories for your ingridient'
+        },
+        {
+            selector: '.add-item-button',
+            content: 'add item and calories to your meal'
+        },
+        {
+            selector: '.remove-item-button',
+            content: 'remove item and calories to your meal'
+        },
+        {
+            selector: '.add-item-to-database',
+            content: 'add ingridient and calories to shared database'
+        }
+    ];
+    const disableBody = target => disableBodyScroll(target)
+    const enableBody = target => enableBodyScroll(target)
     return (
         <>
+            <Tour
+                steps={steps}
+                isOpen={isTourOpen}
+                onAfterOpen={disableBody}
+                onBeforeClose={enableBody}
+                onRequestClose={() => setOpen(false)}
+            />
+            <Button onClick={() => setOpen(true)}>Walthrough Tour</Button>
             <div className="card-grid">
-                {foods.map((food) => (
+                {foods.map((food, index) => (
                     <FoodCard
+                        className={`card-grid-item-${index}`}
                         name={food.name}
                         caloriesPerGram={food.caloriesPerGram}
                         calorieCount={calorieCount}
@@ -128,6 +166,7 @@ const CalorieCounter = props => {
                     <div className="inputs">
                         <div className="calorie-calculator">
                             <TextField
+                                className="gram-input"
                                 sx={{
                                     backgroundColor: '#f0f0f0', // Set the background color here
                                     '& .MuicontainedInput-root': {
@@ -137,6 +176,7 @@ const CalorieCounter = props => {
                             </TextField>
                             <div>
                                 <Button
+                                    className="calculate-button"
                                     sx={{
                                         margin: '16px', // Adds margin around the button
                                     }} type={"submit"} onClick={handleSubmit}
@@ -155,6 +195,7 @@ const CalorieCounter = props => {
                 <div className="info">
                     <div className="totalCal">
                         <Button
+                            className="add-item-button"
                             sx={{
                                 margin: '16px', // Adds margin around the button
                             }}
@@ -170,6 +211,7 @@ const CalorieCounter = props => {
                             <span>{`${perServing} calories per serving`}</span><br />
                         </div>
                         <Button
+                            className="remove-item-button"
                             sx={{
                                 margin: '16px', // Adds margin around the button
                             }}
@@ -186,7 +228,7 @@ const CalorieCounter = props => {
                         ))}</div>
                 </div>
             </div>
-            <div className="datbase-ui-input">
+            <div className="add-item-to-database">
                 {isAuthenticated ? (
                     <>
                         <TextField
