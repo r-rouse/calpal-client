@@ -113,7 +113,7 @@ const CalorieCounter = props => {
     const perServing = ((count / servingSize).toFixed(2))
     const steps = [
         {
-            selector: '.card-grid-item-0',
+            selector: '.item-apple',
             content: 'choose a food item',
         },
         {
@@ -150,9 +150,9 @@ const CalorieCounter = props => {
             />
             <Button onClick={() => setOpen(true)}>Walthrough Tour</Button>
             <div className="card-grid">
-                {foods.map((food, index) => (
+                {foods.map((food) => (
                     <FoodCard
-                        className={`card-grid-item-${index}`}
+                        className={`item-${food.name}`}
                         name={food.name}
                         caloriesPerGram={food.caloriesPerGram}
                         calorieCount={calorieCount}
