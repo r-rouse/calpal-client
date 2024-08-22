@@ -113,7 +113,7 @@ const CalorieCounter = props => {
     const perServing = ((count / servingSize).toFixed(2))
     const steps = [
         {
-            selector: '.apple',
+            selector: '[data-tut="apple"]',
             content: 'choose a food item',
         },
         {

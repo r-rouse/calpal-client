@@ -21,7 +21,7 @@ const FoodCard = props => {
 
     return(
         <>
-            <div className={name} onClick={caloriesPerFood}>
+            <div className="card" data-tut={name} onClick={caloriesPerFood}>
                 <h3>{name}</h3>
             </div>
         
