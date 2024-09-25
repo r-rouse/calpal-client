@@ -113,7 +113,7 @@ const CalorieCounter = props => {
 
     useEffect(() => {
         setPerServing((count / servingSize).toFixed(2))
-    }, [servingSize])
+    }, [servingSize, count])
     const steps = [
         {
             selector: '[data-tut="apple"]',
