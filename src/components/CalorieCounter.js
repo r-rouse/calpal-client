@@ -22,7 +22,8 @@ const CalorieCounter = props => {
         name: '',
         caloriesPerGram: '',
     })
-    const [servingSize,] = useState(4)
+    const servingSizes = [1, 2, 3, 4];
+    const [servingSize, setServingSize] = useState(1)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const getAllFoods = async (food) => {
         await axios.get(`${apiUrl}/api/foods`)
@@ -100,7 +101,6 @@ const CalorieCounter = props => {
             dispatch(decrementByAmount(calories))
             dispatch(decrementByItem(food))
             setCalories(itemCalories[itemCalories.length - 1])
-            console.log(calories, "wth")
         } else {
             dispatch(decrementByAmount(calories))
             dispatch(decrementByItem(food))
@@ -209,16 +209,33 @@ const CalorieCounter = props => {
                             <span>{`${transformedCount} calories in your meal`}</span><br />
                             <span>{`${perServing} calories per serving`}</span><br />
                         </div>
-                        <Button
-                            className="remove-item-button"
-                            sx={{
-                                margin: '16px', // Adds margin around the button
-                            }}
-                            variant="contained" aria-label="Decrement value"
-                            onClick={removeCaloriesAndIngridients}
-                        >
-                            Remove last item
-                        </Button>
+                        <div style={{ flexDirection: 'colunm', marginTop: 20 }}>
+                            Serving size
+                            <br />
+                            {servingSizes.map((size) => (
+                                <Button
+                                    sx={{
+                                        margin: '16px', // Adds margin around the button
+                                    }}
+                                    variant="contained" aria-label="Decrement value"
+                                    key={size}
+                                    title={size.toString()} // Convert number to string for button title
+                                    onPress={() => setServingSize(size)} // Set serving size on button press
+                                >
+                                    {size}
+                                </Button>
+                            ))}
+                            <Button
+                                className="remove-item-button"
+                                sx={{
+                                    margin: '16px', // Adds margin around the button
+                                }}
+                                variant="contained" aria-label="Decrement value"
+                                onClick={removeCaloriesAndIngridients}
+                            >
+                                Remove last item
+                            </Button>
+                        </div>
                     </div>
                     <div className="list">
                         Ingredients List:

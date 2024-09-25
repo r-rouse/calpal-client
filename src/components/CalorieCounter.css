@@ -20,7 +20,7 @@
 .totalCal{
     display: flex;
     flex-direction: column;
-    height: 10em;
+    height: 15em;
     width: 15em;
     border: 2px solid red;
     justify-content: center;
