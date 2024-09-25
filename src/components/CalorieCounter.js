@@ -34,6 +34,7 @@ const CalorieCounter = props => {
         await axios.post(`${apiUrl}/api/foods`, newFood)
             .then(response => console.log(response))
     }
+    const [perServing, setPerServing] = useState();
 
     useEffect(() => {
         // Check if the token exists in localStorage
@@ -110,7 +111,9 @@ const CalorieCounter = props => {
     const message = calories < 10 ? `${calories} calories per gram of ${food}` :
         `${calories} calories of ${food}`
 
-    const perServing = ((count / servingSize).toFixed(2))
+    useEffect(() => {
+        setPerServing((count / servingSize).toFixed(2))
+    }, [servingSize])
     const steps = [
         {
             selector: '[data-tut="apple"]',
@@ -220,7 +223,7 @@ const CalorieCounter = props => {
                                     variant="contained" aria-label="Decrement value"
                                     key={size}
                                     title={size.toString()} // Convert number to string for button title
-                                    onPress={() => setServingSize(size)} // Set serving size on button press
+                                    onClick={() => setServingSize(size)} // Set serving size on button press
                                 >
                                     {size}
                                 </Button>
