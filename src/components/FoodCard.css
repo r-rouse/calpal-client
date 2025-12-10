@@ -8,7 +8,6 @@
     justify-content: center;
     text-align: center;
     padding: 0.5rem;
-    background-color: #fff;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 

@@ -23,7 +23,9 @@ button {
 ======================== */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    width: 100%;
+    /* fill parent width */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 5fr));
     gap: 1rem;
     padding: 1rem;
 }
@@ -41,7 +43,6 @@ button {
     justify-content: center;
     text-align: center;
     padding: 0.5rem;
-    background-color: #fff;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -159,7 +160,9 @@ button[title] {
         font-size: 0.85rem;
     }
 
-    .input, .info, .add-item-to-database {
+    .input,
+    .info,
+    .add-item-to-database {
         padding: 0.5rem;
         gap: 0.5rem;
     }
