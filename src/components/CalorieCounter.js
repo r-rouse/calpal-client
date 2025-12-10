@@ -113,7 +113,7 @@ const CalorieCounter = props => {
 
     useEffect(() => {
         setPerServing((count / servingSize).toFixed(2))
-    }, [servingSize])
+    }, [servingSize, count])
     const steps = [
         {
             selector: '[data-tut="apple"]',
@@ -151,7 +151,7 @@ const CalorieCounter = props => {
                 onBeforeClose={enableBody}
                 onRequestClose={() => setOpen(false)}
             />
-            <Button onClick={() => setOpen(true)}>Walthrough Tour</Button>
+            <Button onClick={() => setOpen(true)}>Walkthrough Tour</Button>
             <div className="card-grid">
                 {foods.map((food) => (
                     <FoodCard
