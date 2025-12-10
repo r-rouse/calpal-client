@@ -55,10 +55,12 @@ const Login = () => {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: { xs: 4, sm: 8 },
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        padding: { xs: 2, sm: 0 },
+                        width: '100%',
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -67,7 +69,7 @@ const Login = () => {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1, width: '100%' }}>
                         <TextField
                             error={error}
                             margin="normal"
@@ -79,6 +81,7 @@ const Login = () => {
                             autoComplete="email"
                             helperText={error ? "incorrect password or email": ""}
                             autoFocus
+                            sx={{ minHeight: '56px' }}
                         />
                         <TextField
                             error={error}
@@ -91,6 +94,7 @@ const Login = () => {
                             id="password"
                             helperText={error ? "incorrect password or email": ""}
                             autoComplete="current-password"
+                            sx={{ minHeight: '56px' }}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
@@ -100,23 +104,28 @@ const Login = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ 
+                                mt: 3, 
+                                mb: 2,
+                                minHeight: '44px',
+                                fontSize: { xs: '0.9rem', sm: '1rem' }
+                            }}
                         >
                             Sign In
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
+                        <Grid container spacing={1} sx={{ mt: 2 }}>
+                            <Grid item xs={12} sm={6}>
+                                <Link href="#" variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                                     Forgot password?
                                 </Link>
                             </Grid>
-                            <Grid item>
-                                <Link href="/signup" variant="body2">
+                            <Grid item xs={12} sm={6}>
+                                <Link href="/signup" variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
-                            <Grid item>
-                                <Link href="/counter" variant="body2">
+                            <Grid item xs={12}>
+                                <Link href="/" variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                                     {"Just want to use the app as guest?"}
                                 </Link>
                             </Grid>

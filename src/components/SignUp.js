@@ -53,10 +53,12 @@ export default function SignUp() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: { xs: 4, sm: 8 },
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        padding: { xs: 2, sm: 0 },
+                        width: '100%',
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -65,7 +67,7 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -77,6 +79,7 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    sx={{ minHeight: '56px' }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -89,6 +92,7 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    sx={{ minHeight: '56px' }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -102,13 +106,18 @@ export default function SignUp() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ 
+                                mt: 3, 
+                                mb: 2,
+                                minHeight: '44px',
+                                fontSize: { xs: '0.9rem', sm: '1rem' }
+                            }}
                         >
                             Sign Up
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/signin" variant="body2">
+                                <Link href="/signin" variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>
