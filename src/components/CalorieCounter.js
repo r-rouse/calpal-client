@@ -113,7 +113,7 @@ const CalorieCounter = props => {
 
     useEffect(() => {
         setPerServing((count / servingSize).toFixed(2))
-    }, [servingSize, count])
+    }, [servingSize])
     const steps = [
         {
             selector: '[data-tut="apple"]',
@@ -151,16 +151,7 @@ const CalorieCounter = props => {
                 onBeforeClose={enableBody}
                 onRequestClose={() => setOpen(false)}
             />
-            <Button 
-                onClick={() => setOpen(true)}
-                sx={{
-                    mb: { xs: 1, sm: 2 },
-                    width: { xs: '90%', sm: 'auto' },
-                    maxWidth: { xs: '300px', sm: 'none' }
-                }}
-            >
-                Walkthrough Tour
-            </Button>
+            <Button onClick={() => setOpen(true)}>Walthrough Tour</Button>
             <div className="card-grid">
                 {foods.map((food) => (
                     <FoodCard
@@ -179,28 +170,19 @@ const CalorieCounter = props => {
                             <TextField
                                 className="gram-input"
                                 sx={{
-                                    backgroundColor: '#f0f0f0',
-                                    width: { xs: '100%', sm: 'auto' },
-                                    minHeight: '44px',
+                                    backgroundColor: '#f0f0f0', // Set the background color here
                                     '& .MuicontainedInput-root': {
                                     },
-                                }} 
-                                onChange={handleIngredientsChange}
-                                placeholder={"number of grams"}
-                                type="number"
-                            />
+                                }} onChange={handleIngredientsChange}
+                                placeholder={"number of grams"}>
+                            </TextField>
                             <div>
                                 <Button
                                     className="calculate-button"
                                     sx={{
-                                        margin: { xs: '8px', sm: '16px' },
-                                        width: { xs: '100%', sm: 'auto' },
-                                        minHeight: '44px'
-                                    }} 
-                                    type={"submit"} 
-                                    onClick={handleSubmit}
+                                        margin: '16px', // Adds margin around the button
+                                    }} type={"submit"} onClick={handleSubmit}
                                     disabled={disabled}
-                                    variant="contained"
                                 >
                                     calculate
                                 </Button>
@@ -217,9 +199,7 @@ const CalorieCounter = props => {
                         <Button
                             className="add-item-button"
                             sx={{
-                                margin: { xs: '8px', sm: '16px' },
-                                width: { xs: '100%', sm: 'auto' },
-                                minHeight: '44px'
+                                margin: '16px', // Adds margin around the button
                             }}
                             variant="contained"
                             aria-label="Increment value"
@@ -232,52 +212,28 @@ const CalorieCounter = props => {
                             <span>{`${transformedCount} calories in your meal`}</span><br />
                             <span>{`${perServing} calories per serving`}</span><br />
                         </div>
-                        <div style={{ 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            marginTop: 20,
-                            width: '100%',
-                            alignItems: 'center',
-                            gap: '0.5em'
-                        }}>
-                            <div style={{ marginBottom: '0.5em' }}>Serving size</div>
-                            <div style={{ 
-                                display: 'flex', 
-                                flexWrap: 'wrap', 
-                                justifyContent: 'center',
-                                gap: '0.5em',
-                                width: '100%'
-                            }}>
-                                {servingSizes.map((size) => (
-                                    <Button
-                                        sx={{
-                                            margin: { xs: '4px', sm: '8px' },
-                                            minWidth: { xs: '60px', sm: 'auto' },
-                                            minHeight: '44px',
-                                            flex: { xs: '1 1 20%', sm: 'none' },
-                                            maxWidth: { xs: '80px', sm: 'none' }
-                                        }}
-                                        variant="contained" 
-                                        aria-label={`Serving size ${size}`}
-                                        key={size}
-                                        title={size.toString()}
-                                        onClick={() => setServingSize(size)}
-                                        color={servingSize === size ? 'primary' : 'inherit'}
-                                    >
-                                        {size}
-                                    </Button>
-                                ))}
-                            </div>
+                        <div style={{ flexDirection: 'colunm', marginTop: 20 }}>
+                            Serving size
+                            <br />
+                            {servingSizes.map((size) => (
+                                <Button
+                                    sx={{
+                                        margin: '16px', // Adds margin around the button
+                                    }}
+                                    variant="contained" aria-label="Decrement value"
+                                    key={size}
+                                    title={size.toString()} // Convert number to string for button title
+                                    onClick={() => setServingSize(size)} // Set serving size on button press
+                                >
+                                    {size}
+                                </Button>
+                            ))}
                             <Button
                                 className="remove-item-button"
                                 sx={{
-                                    margin: { xs: '8px', sm: '16px' },
-                                    width: { xs: '100%', sm: 'auto' },
-                                    maxWidth: { xs: '280px', sm: 'none' },
-                                    minHeight: '44px'
+                                    margin: '16px', // Adds margin around the button
                                 }}
-                                variant="contained" 
-                                aria-label="Remove last item"
+                                variant="contained" aria-label="Decrement value"
                                 onClick={removeCaloriesAndIngridients}
                             >
                                 Remove last item
@@ -296,9 +252,7 @@ const CalorieCounter = props => {
                     <>
                         <TextField
                             sx={{
-                                backgroundColor: '#f0f0f0',
-                                width: { xs: '100%', sm: 'auto' },
-                                minHeight: '44px'
+                                backgroundColor: '#f0f0f0', // Set the background color here
                             }}
                             onChange={handleIngredientsChange}
                             type='text'
@@ -308,9 +262,7 @@ const CalorieCounter = props => {
                         />
                         <TextField
                             sx={{
-                                backgroundColor: '#f0f0f0',
-                                width: { xs: '100%', sm: 'auto' },
-                                minHeight: '44px'
+                                backgroundColor: '#f0f0f0', // Set the background color here
                             }}
                             onChange={handleIngredientsChange}
                             value={ingredient.caloriesPerGram}
@@ -320,9 +272,7 @@ const CalorieCounter = props => {
                         />
                         <Button
                             sx={{
-                                margin: { xs: '8px', sm: '16px' },
-                                width: { xs: '100%', sm: 'auto' },
-                                minHeight: '44px'
+                                margin: '16px', // Adds margin around the button
                             }}
                             className="button"
                             variant="contained"
