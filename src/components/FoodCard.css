@@ -1,14 +1,39 @@
-
 .card {
-    height: 2.5 em;
-    width: 2.5 em;
+    height: 2.5em;
+    width: 2.5em;
     border: 2px solid red;
-    box-shadow: .1em .1em rgb(52, 25, 27);
-    border-radius: 5%;
+    box-shadow: 0.1em 0.1em rgb(52, 25, 27);
+    border-radius: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
 }
-h3{
-    font-size: medium;
+
+/* Slightly bigger text for mobile readability */
+.card h3,
+h3 {
+    font-size: 1rem;
 }
-.card:hover{
-    transform: scale(1.1);
+
+/* Reduce hover scaling only for devices with hover */
+@media (hover: hover) {
+    .card:hover {
+        transform: scale(1.1);
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .card {
+        height: 4em;
+        width: 4em;
+        border-width: 1.5px;
+        border-radius: 10%;
+        box-shadow: 0.15em 0.15em rgba(52, 25, 27, 0.6);
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
 }
