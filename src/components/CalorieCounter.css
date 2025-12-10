@@ -1,142 +1,61 @@
-.card-grid {
+.card-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    margin: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr ;
+    gap: .5em;
+    margin: 1em;
 }
-
-@media (max-width: 768px) {
-    .card-grid {
-        gap: 0.75rem;
-        margin: 0.75rem;
+@media (max-width: 600px) {
+    .card-grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr ;
+        gap: .5em;
+        margin: 1em;
     }
 }
-
-@media (max-width: 480px) {
-    .card-grid {
-        gap: 0.5rem;
-        margin: 0.5rem;
-    }
-}
-
-.datbase-ui-input {
+.datbase-ui-input{
     margin: 2vh;
 }
-
-.totalCal {
+.totalCal{
     display: flex;
     flex-direction: column;
-    min-height: 15em;
-    width: 100%;
-    max-width: 20em;
+    height: 10em;
+    width: 15em;
     border: 2px solid red;
     justify-content: center;
-    margin: 1em auto;
+    margin: 1em;
     box-shadow: .1em .1em rgb(52, 25, 27);
     border-radius: 5%;
-    padding: 1em;
 }
-
-@media (max-width: 768px) {
-    .totalCal {
-        width: 100%;
-        max-width: 100%;
-        margin: 1em 0.5em;
-        min-height: auto;
-        padding: 0.75em;
-    }
-}
-
-button {
+button{
     margin: .5em;
     align-self: center;
-    min-height: 44px;
-    /* Touch target size */
 }
-
-@media (max-width: 768px) {
-    button {
-        margin: 0.4em;
-        width: 100%;
-        max-width: 280px;
-    }
-}
-
-span {
+span{
     margin: .1em;
     font-size: large;
 }
-
-@media (max-width: 768px) {
-    span {
-        font-size: medium;
-    }
-}
-
-input {
+input{
     width: 70%;
     height: 1.5em;
-    background-color: beige;
+    background-color: beige;    
 }
-
-@media (max-width: 768px) {
-    input {
-        width: 100%;
-        min-height: 44px;
-    }
-}
-
-.input {
+.input{
     display: block;
-    width: 100%;
 }
-
-.inputs {
+.inputs{
     display: flex;
     justify-content: space-between;
     margin: 1em;
-    flex-wrap: wrap;
-    gap: 1em;
 }
-
-@media (max-width: 768px) {
-    .inputs {
-        flex-direction: column;
-        margin: 0.5em;
-        gap: 0.5em;
-    }
+.calorie-calculator{
+    width: 20em;
 }
-
-.calorie-calculator {
-    width: 100%;
-    max-width: 20em;
+.info{
     display: flex;
-    flex-direction: column;
-    gap: 0.5em;
 }
-
-@media (max-width: 768px) {
-    .calorie-calculator {
-        max-width: 100%;
-        width: 100%;
-    }
-}
-
-.info {
-    display: flex;
-    gap: 1em;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-@media (max-width: 768px) {
-    .info {
-        flex-direction: column;
-        gap: 0.5em;
-    }
-}
-
-.itemList {
+.itemList{
     font-size: medium;
     color: rgb(215, 235, 226);
     text-overflow: clip;
@@ -144,78 +63,12 @@ input {
     display: block;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 0.25em 0;
-    word-wrap: break-word;
 }
-
-@media (max-width: 768px) {
-    .itemList {
-        font-size: small;
-        padding: 0.2em 0;
-    }
+.infoBox{
+    height: 15em;
 }
-
-.infoBox {
-    min-height: 5em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-@media (max-width: 768px) {
-    .infoBox {
-        min-height: 4em;
-        padding: 0.5em;
-    }
-}
-
-.title {
+.title{
     font-size: large;
     color: white;
     align-self: flex-start;
-}
-
-@media (max-width: 768px) {
-    .title {
-        font-size: medium;
-    }
-}
-
-.list {
-    flex: 1;
-    min-width: 200px;
-    max-width: 100%;
-    padding: 0.5em;
-}
-
-@media (max-width: 768px) {
-    .list {
-        width: 100%;
-        padding: 0.5em 0.25em;
-    }
-}
-
-.add-item-to-database {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    margin: 1em;
-    padding: 1em;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-@media (max-width: 768px) {
-    .add-item-to-database {
-        margin: 0.5em;
-        padding: 0.5em;
-        gap: 0.75em;
-    }
-
-    .add-item-to-database .MuiTextField-root,
-    .add-item-to-database button {
-        width: 100%;
-    }
 }
