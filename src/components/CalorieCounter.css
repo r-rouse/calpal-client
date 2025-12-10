@@ -1,23 +1,26 @@
 .card-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr ;
     gap: .5em;
     margin: 1em;
-    padding: 0.5em;
+}
+
+@media (max-width: 768px) {
+    .card-grid{
+        gap: 0.3em;
+        margin: 0.5em;
+        transform: scale(0.85);
+        transform-origin: top center;
+    }
 }
 
 @media (max-width: 480px) {
     .card-grid{
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 0.4em;
-        margin: 0.5em;
-        padding: 0.25em;
-    }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-    .card-grid{
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 0.25em;
+        margin: 0.25em;
+        transform: scale(0.75);
+        transform-origin: top center;
     }
 }
 .datbase-ui-input{
