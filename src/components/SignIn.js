@@ -39,7 +39,7 @@ const Login = () => {
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
 
-                navigate('/counter');
+                navigate('/');
             } else {
                 console.error('Login failed, please try again.');
             }

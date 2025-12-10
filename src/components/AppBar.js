@@ -43,8 +43,13 @@ function ResponsiveAppBar() {
     };
     const handlePressItem = () => {
         setAnchorElUser(null);
-        localStorage.removeItem('token');
-        navigate('/')
+        const token = localStorage.getItem("token");
+        if (token) {
+            localStorage.removeItem('token');
+            navigate('/');
+        } else {
+            navigate('/signin');
+        }
     };
     const token  = localStorage.getItem("token")
     const setting =  token ? "logout" : "login"
